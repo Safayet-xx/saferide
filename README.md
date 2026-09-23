@@ -8,6 +8,7 @@ FastAPI serves the API under `/api/*` and also serves the built React app for ev
 car247/
 ├── backend/
 │   ├── config.py      # reads every setting from env vars / .env
+│   ├── emailer.py     # emails bookings/messages via SendGrid (or prints them in console mode)
 │   ├── main.py        # API routes + serves React build
 │   └── content.py     # site text (vehicles, locations, blog...); brand details come from env
 ├── frontend/
@@ -36,6 +37,19 @@ Double-click `run.bat` (or run it from a terminal). On first run it:
 All settings (ports, admin key, CORS, brand name, phone, email, address, links) live in `.env`.
 Both the backend (`backend/config.py`) and Vite (`frontend/vite.config.js`) read the same file. Never commit `.env`.
 
+## Emails (SendGrid)
+Every booking and contact form is emailed to `BOOKINGS_EMAIL_TO`, with the customer as reply-to, so you can just press Reply.
+The customer also gets a confirmation with their reference (`SEND_CUSTOMER_CONFIRMATION=true`).
+If the email to you fails, the customer sees an error with your phone number, so no booking is silently lost.
+
+Set in `.env` (and on Render):
+- `SENDGRID_API_KEY`: SendGrid > Settings > API Keys, with "Mail Send" permission
+- `SENDGRID_FROM_EMAIL`: an address verified in SendGrid > Settings > Sender Authentication
+- `BOOKINGS_EMAIL_TO`: the inbox(es) that receive bookings, comma-separated
+
+Without `SENDGRID_API_KEY`, emails are only printed in the backend window (console mode), which is handy for local testing.
+Restart `run.bat` after editing `.env`.
+
 ## Deploy on Render
 1. Push this folder to GitHub.
 2. On Render: New > Blueprint, pick the repo (it reads `render.yaml`).
@@ -58,5 +72,5 @@ Both the backend (`backend/config.py`) and Vite (`frontend/vite.config.js`) read
 API docs: /docs (only when `ENABLE_API_DOCS=true`)
 
 ## Notes
-- Submissions are stored in memory and are lost on restart. Add Postgres (or send an email) when you need to keep them.
+- The email is the record of each booking. `GET /api/quotes` and `/api/messages` only show submissions since the last restart.
 - Brand details are in `.env`. To edit other content, change `backend/content.py`. To change colours, edit the variables at the top of `styles.css`.

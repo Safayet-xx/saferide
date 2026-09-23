@@ -57,6 +57,7 @@ SITE = {
         {"name": "East Midlands Airport", "code": "EMA"},
     ],
     "locations": [
+        {"slug": "london", "name": "London", "text": "Taxis and airport transfers across London, day and night."},
         {"slug": "birmingham", "name": "Birmingham", "text": "Add a short description of your service in Birmingham."},
         {"slug": "wolverhampton", "name": "Wolverhampton", "text": "Add a short description of your service in Wolverhampton."},
         {"slug": "walsall", "name": "Walsall", "text": "Add a short description of your service in Walsall."},
