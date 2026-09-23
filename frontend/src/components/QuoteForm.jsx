@@ -10,6 +10,13 @@ const EMPTY = {
   journey_type: "one_way", return_pickup_address: "", return_pickup_datetime: "",
 };
 
+// Current local time in the format <input type="datetime-local"> uses, e.g. "2026-09-25T12:30"
+function nowLocal() {
+  const d = new Date();
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().slice(0, 16);
+}
+
 export default function QuoteForm() {
   const { vehicles } = useSite();
   const [form, setForm] = useState(EMPTY);
@@ -35,6 +42,8 @@ export default function QuoteForm() {
   }
 
   const isReturn = form.journey_type === "return";
+  const chosen = vehicles.find((v) => v.id === form.vehicle);
+  const minTime = nowLocal();
 
   return (
     <form className="quote-form" onSubmit={submit}>
@@ -59,7 +68,7 @@ export default function QuoteForm() {
       </div>
 
       <label>Pickup date and time
-        <input type="datetime-local" name="pickup_datetime" value={form.pickup_datetime} onChange={update} required />
+        <input type="datetime-local" name="pickup_datetime" min={minTime} value={form.pickup_datetime} onChange={update} required />
       </label>
 
       <div className="field-row">
@@ -72,7 +81,7 @@ export default function QuoteForm() {
           </select>
         </label>
         <label className="short">Passengers
-          <input type="number" min="1" max="16" name="passengers" value={form.passengers} onChange={update} required />
+          <input type="number" min="1" max={chosen ? chosen.seats : 16} name="passengers" value={form.passengers} onChange={update} required />
         </label>
       </div>
 
@@ -92,7 +101,7 @@ export default function QuoteForm() {
             <input name="return_pickup_address" value={form.return_pickup_address} onChange={update} />
           </label>
           <label>Return date and time
-            <input type="datetime-local" name="return_pickup_datetime" value={form.return_pickup_datetime} onChange={update} required />
+            <input type="datetime-local" name="return_pickup_datetime" min={form.pickup_datetime || minTime} value={form.return_pickup_datetime} onChange={update} required />
           </label>
         </div>
       )}

@@ -30,3 +30,18 @@ services:
         sync: false
       - key: BRAND_ADDRESS
         sync: false
+      # Email: fill these in the Render dashboard
+      - key: EMAIL_PROVIDER
+        value: sendgrid
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: SENDGRID_FROM_EMAIL
+        sync: false
+      - key: SENDGRID_FROM_NAME
+        value: SafeRide Airport Taxis
+      - key: BOOKINGS_EMAIL_TO
+        sync: false
+      - key: SEND_CUSTOMER_CONFIRMATION
+        value: "true"
+      - key: TIMEZONE
+        value: Europe/London
