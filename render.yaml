@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: saferide-airport-taxis
+    runtime: python
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: NODE_VERSION
+        value: 20.17.0
+      - key: APP_ENV
+        value: production
+      - key: ADMIN_KEY
+        generateValue: true
+      - key: ENABLE_API_DOCS
+        value: "false"
+      # Brand details: set real values in the Render dashboard
+      - key: BRAND_NAME
+        value: SafeRide Airport Taxis
+      - key: BRAND_LEGAL_NAME
+        value: SafeRide Airport Taxis Limited
+      - key: BRAND_PHONE
+        sync: false
+      - key: BRAND_WHATSAPP
+        sync: false
+      - key: BRAND_EMAIL
+        sync: false
+      - key: BRAND_ADDRESS
+        sync: false
