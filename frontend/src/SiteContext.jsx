@@ -26,3 +26,4 @@ export function SiteProvider({ children }) {
 export const useSite = () => useContext(SiteContext);
 
 export const telLink = (phone) => `tel:${phone.replace(/\s/g, "")}`;
+export const mailLink = (email) => `mailto:${email}`;

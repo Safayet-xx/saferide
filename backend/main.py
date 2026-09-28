@@ -52,7 +52,7 @@ VEHICLES = {v["id"]: v for v in SITE["vehicles"]}
 EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 PHONE_PATTERN = re.compile(r"^\+?[0-9 ()-]{7,20}$")
 CONTACT_TOPICS = ("General", "Personal account", "Business account", "Driving for us", "Lost property", "Feedback")
-EMAIL_FAILED = "We couldn't send your request just now. Please try again or call us on {phone}."
+EMAIL_FAILED = "We couldn't send your request just now. Please try again, or email us at {email}."
 
 
 def clean_email(value: str) -> str:
@@ -148,7 +148,7 @@ def create_quote(quote: QuoteRequest):
         emailer.send_quote_emails(reference, quote, VEHICLES[quote.vehicle]["name"])
     except emailer.EmailError as err:
         log.error("Booking %s email failed: %s", reference, err)
-        raise HTTPException(status_code=502, detail=EMAIL_FAILED.format(phone=config.BRAND["phone"]))
+        raise HTTPException(status_code=502, detail=EMAIL_FAILED.format(email=config.BRAND["email"]))
 
     QUOTES.append({
         "reference": reference,
@@ -164,7 +164,7 @@ def create_message(msg: ContactMessage):
         emailer.send_message_email(msg)
     except emailer.EmailError as err:
         log.error("Message email failed: %s", err)
-        raise HTTPException(status_code=502, detail=EMAIL_FAILED.format(phone=config.BRAND["phone"]))
+        raise HTTPException(status_code=502, detail=EMAIL_FAILED.format(email=config.BRAND["email"]))
 
     MESSAGES.append({"created_at": datetime.now(timezone.utc).isoformat(), **msg.model_dump()})
     return {"message": "Message sent. We'll get back to you soon."}

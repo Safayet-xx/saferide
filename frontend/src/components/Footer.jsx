@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useSite, telLink } from "../SiteContext.jsx";
+import { useSite, telLink, mailLink } from "../SiteContext.jsx";
 
 export default function Footer() {
   const { brand, locations } = useSite();
@@ -13,10 +13,10 @@ export default function Footer() {
             <img className="logo-mark" src="/logo.webp" alt="" />
             {brand.name}
           </p>
-          <p>{brand.address}</p>
-          <p><a href={telLink(brand.phone)}>Call {brand.phone}</a></p>
-          <p>WhatsApp {brand.whatsapp}</p>
-          <p><a href={`mailto:${brand.email}`}>{brand.email}</a></p>
+          <p><a href={mailLink(brand.email)}>{brand.email}</a></p>
+          {brand.phone && <p><a href={telLink(brand.phone)}>Call {brand.phone}</a></p>}
+          {brand.whatsapp && <p>WhatsApp {brand.whatsapp}</p>}
+          {brand.address && <p>{brand.address}</p>}
         </div>
 
         <div>
@@ -33,15 +33,17 @@ export default function Footer() {
           ))}
         </div>
 
-        <div>
-          <h3>Follow us</h3>
-          {Object.entries(brand.socials).map(([name, url]) => (
-            <a key={name} href={url} target="_blank" rel="noreferrer">{name}</a>
-          ))}
-        </div>
+        {Object.keys(brand.socials).length > 0 && (
+          <div>
+            <h3>Follow us</h3>
+            {Object.entries(brand.socials).map(([name, url]) => (
+              <a key={name} href={url} target="_blank" rel="noreferrer">{name}</a>
+            ))}
+          </div>
+        )}
       </div>
       <p className="container copyright">
-        © {new Date().getFullYear()} {brand.name}. All rights reserved.
+        © {new Date().getFullYear()} {brand.legal_name}. All rights reserved.
       </p>
     </footer>
   );
