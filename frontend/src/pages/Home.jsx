@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { useSite, telLink } from "../SiteContext.jsx";
+import { useSite, mailLink } from "../SiteContext.jsx";
 import QuoteForm from "../components/QuoteForm.jsx";
 import Stars from "../components/Stars.jsx";
 
 export default function Home() {
   const site = useSite();
   const { brand, hero } = site;
+  const hasApp = Boolean(brand.app_links.ios || brand.app_links.android);
 
   return (
     <>
@@ -16,7 +17,7 @@ export default function Home() {
             <h1>{hero.title}</h1>
             <p className="lead">{hero.subtitle}</p>
             <p className="hero-call">
-              Prefer to talk? <a href={telLink(brand.phone)}>{brand.phone}</a>
+              Prefer email? <a href={mailLink(brand.email)}>{brand.email}</a>
             </p>
           </div>
           <QuoteForm />
@@ -31,13 +32,10 @@ export default function Home() {
             <article key={opt.title} className="panel">
               <h2>{opt.title}</h2>
               <p>{opt.text}</p>
-              {opt.link_type === "phone" ? (
-                <a className="btn btn-navy" href={telLink(brand.phone)}>{opt.action}</a>
+              {opt.link_type === "email" ? (
+                <a className="btn btn-navy" href={mailLink(brand.email)}>{opt.action}</a>
               ) : (
-                <div className="store-links">
-                  <a className="btn btn-outline" href={brand.app_links.ios}>App Store</a>
-                  <a className="btn btn-outline" href={brand.app_links.android}>Google Play</a>
-                </div>
+                <Link className="btn btn-navy" to="/book">{opt.action}</Link>
               )}
             </article>
           ))}
@@ -77,30 +75,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* App */}
-      <section className="section section-navy">
-        <div className="container app-grid">
-          <div>
-            <h2 className="section-title">Get the app</h2>
-            {site.app_features.map((f) => (
-              <div key={f.title} className="app-feature">
-                <h3>{f.title}</h3>
-                <p>{f.text}</p>
+      {/* App: only shown once APP_LINK_IOS or APP_LINK_ANDROID is set */}
+      {hasApp && (
+        <section className="section section-navy">
+          <div className="container app-grid">
+            <div>
+              <h2 className="section-title">Get the app</h2>
+              {site.app_features.map((f) => (
+                <div key={f.title} className="app-feature">
+                  <h3>{f.title}</h3>
+                  <p>{f.text}</p>
+                </div>
+              ))}
+              <div className="store-links">
+                {brand.app_links.ios && <a className="btn btn-amber" href={brand.app_links.ios}>App Store</a>}
+                {brand.app_links.android && <a className="btn btn-amber" href={brand.app_links.android}>Google Play</a>}
               </div>
-            ))}
-            <div className="store-links">
-              <a className="btn btn-amber" href={brand.app_links.ios}>App Store</a>
-              <a className="btn btn-amber" href={brand.app_links.android}>Google Play</a>
+            </div>
+            {/* Replace this block with a phone mockup image later */}
+            <div className="phone-placeholder" aria-hidden="true">
+              <div className="phone-screen">
+                <span>{brand.name}</span>
+              </div>
             </div>
           </div>
-          {/* Replace this block with a phone mockup image later */}
-          <div className="phone-placeholder" aria-hidden="true">
-            <div className="phone-screen">
-              <span>{brand.name}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Reviews */}
       <section className="section">

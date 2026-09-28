@@ -17,30 +17,24 @@ services:
         generateValue: true
       - key: ENABLE_API_DOCS
         value: "false"
-      # Brand details: set real values in the Render dashboard
+      # Brand details. Add BRAND_PHONE / BRAND_WHATSAPP / BRAND_ADDRESS later to show them on the site
       - key: BRAND_NAME
         value: SafeRide Airport Taxis
       - key: BRAND_LEGAL_NAME
         value: SafeRide Airport Taxis Limited
-      - key: BRAND_PHONE
-        sync: false
-      - key: BRAND_WHATSAPP
-        sync: false
       - key: BRAND_EMAIL
-        sync: false
-      - key: BRAND_ADDRESS
-        sync: false
-      # Email: fill these in the Render dashboard
+        value: info@saferidetaxi.co.uk
+      # Email: only SENDGRID_API_KEY needs filling in the Render dashboard
       - key: EMAIL_PROVIDER
         value: sendgrid
       - key: SENDGRID_API_KEY
         sync: false
       - key: SENDGRID_FROM_EMAIL
-        sync: false
+        value: info@saferidetaxi.co.uk
       - key: SENDGRID_FROM_NAME
         value: SafeRide Airport Taxis
       - key: BOOKINGS_EMAIL_TO
-        sync: false
+        value: info@saferidetaxi.co.uk
       - key: SEND_CUSTOMER_CONFIRMATION
         value: "true"
       - key: TIMEZONE

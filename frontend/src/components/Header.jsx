@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useSite, telLink } from "../SiteContext.jsx";
+import { useSite, telLink, mailLink } from "../SiteContext.jsx";
 
 export default function Header() {
   const { brand, locations } = useSite();
@@ -39,7 +39,11 @@ export default function Header() {
           <NavLink to="/airport-transfer" onClick={close}>Airport</NavLink>
           <NavLink to="/work-with-us" onClick={close}>Work with us</NavLink>
           <NavLink to="/blog" onClick={close}>Blog</NavLink>
-          <a className="btn btn-amber nav-phone" href={telLink(brand.phone)}>{brand.phone}</a>
+          {brand.phone ? (
+            <a className="btn btn-amber nav-phone" href={telLink(brand.phone)}>{brand.phone}</a>
+          ) : (
+            <a className="btn btn-amber nav-phone" href={mailLink(brand.email)}>Email us</a>
+          )}
         </nav>
       </div>
     </header>

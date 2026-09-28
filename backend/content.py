@@ -14,20 +14,20 @@ SITE = {
     },
     "booking_options": [
         {
-            "title": "Book by phone",
-            "text": "Call our dispatch team and they'll book your ride while you're on the line. No app needed.",
-            "action": "Call us",
-            "link_type": "phone",
+            "title": "Book online",
+            "text": "Send us your journey details and we'll email you a fixed price before you confirm.",
+            "action": "Get a quote",
+            "link_type": "book",
         },
         {
-            "title": "Book in the app",
-            "text": "Request a ride, see your price and track your driver from your phone.",
-            "action": "Get the app",
-            "link_type": "app",
+            "title": "Email us",
+            "text": "Questions, special requests or a regular booking? Email us and we'll get back to you quickly.",
+            "action": "Email us",
+            "link_type": "email",
         },
     ],
     "features": [
-        {"title": "Book without an app", "text": "Our phone line is open around the clock."},
+        {"title": "Book online in a minute", "text": "Send your journey details and we'll email your price."},
         {"title": "Fixed price upfront", "text": "You see the final fare before the ride is confirmed."},
         {"title": "Live tracking", "text": "We text you a link so you and your family can follow the trip."},
         {"title": "Pre-book any time", "text": "Schedule rides days ahead for early flights or appointments."},
@@ -57,11 +57,7 @@ SITE = {
         {"name": "East Midlands Airport", "code": "EMA"},
     ],
     "locations": [
-        {"slug": "london", "name": "London", "text": "Taxis and airport transfers across London, day and night."},
-        {"slug": "birmingham", "name": "Birmingham", "text": "Add a short description of your service in Birmingham."},
-        {"slug": "wolverhampton", "name": "Wolverhampton", "text": "Add a short description of your service in Wolverhampton."},
-        {"slug": "walsall", "name": "Walsall", "text": "Add a short description of your service in Walsall."},
-        {"slug": "dudley", "name": "Dudley", "text": "Add a short description of your service in Dudley."},
+        {"slug": "wolverhampton", "name": "Wolverhampton", "text": "Taxis and airport transfers across Wolverhampton, day and night."},
     ],
     "reviews": [
         {"name": "Customer name", "rating": 5, "text": "Replace this with a real review from a customer."},

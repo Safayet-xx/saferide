@@ -42,10 +42,13 @@ Every booking and contact form is emailed to `BOOKINGS_EMAIL_TO`, with the custo
 The customer also gets a confirmation with their reference (`SEND_CUSTOMER_CONFIRMATION=true`).
 If the email to you fails, the customer sees an error with your phone number, so no booking is silently lost.
 
-Set in `.env` (and on Render):
-- `SENDGRID_API_KEY`: SendGrid > Settings > API Keys, with "Mail Send" permission
-- `SENDGRID_FROM_EMAIL`: an address verified in SendGrid > Settings > Sender Authentication
-- `BOOKINGS_EMAIL_TO`: the inbox(es) that receive bookings, comma-separated
+Email is the only contact method for now. `info@saferidetaxi.co.uk` (`BRAND_EMAIL`) is shown on the site,
+sends the emails (`SENDGRID_FROM_EMAIL`) and receives the bookings (`BOOKINGS_EMAIL_TO`). The last two default to `BRAND_EMAIL`.
+
+The only secret to set (in `.env` and on Render) is `SENDGRID_API_KEY`: SendGrid > Settings > API Keys, with "Mail Send" permission.
+In SendGrid, authenticate the domain `saferidetaxi.co.uk` (Settings > Sender Authentication) so emails don't land in spam.
+
+`BRAND_PHONE`, `BRAND_WHATSAPP`, `BRAND_ADDRESS`, `APP_LINK_*` and `SOCIAL_*` are optional: leave them empty and they're hidden on the site.
 
 Without `SENDGRID_API_KEY`, emails are only printed in the backend window (console mode), which is handy for local testing.
 Restart `run.bat` after editing `.env`.

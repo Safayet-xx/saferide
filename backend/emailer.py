@@ -155,7 +155,7 @@ def send_quote_emails(reference: str, quote, vehicle_name: str):
         brand = config.BRAND
         text_body, html_body = _render(
             f"Thanks, {quote.name}. We've got your request.", rows,
-            f"We'll contact you shortly with your price. Questions? Call us on {brand['phone']}.",
+            f"We'll email you shortly with your price. Questions? Just reply to this email or write to {brand['email']}.",
         )
         try:
             send([quote.email], f"Your {brand['name']} booking request ({reference})", text_body, html_body,
