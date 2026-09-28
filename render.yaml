@@ -17,13 +17,15 @@ services:
         generateValue: true
       - key: ENABLE_API_DOCS
         value: "false"
-      # Brand details. Add BRAND_PHONE / BRAND_WHATSAPP / BRAND_ADDRESS later to show them on the site
+      # Brand details. Add BRAND_PHONE / BRAND_WHATSAPP later to show them on the site
       - key: BRAND_NAME
         value: SafeRide Airport Taxis
       - key: BRAND_LEGAL_NAME
         value: SafeRide Airport Taxis Limited
       - key: BRAND_EMAIL
         value: info@saferidetaxi.co.uk
+      - key: BRAND_ADDRESS
+        value: 6 Walsall Street, Bilston, Wolverhampton, WV14 0AT
       # Email: only SENDGRID_API_KEY needs filling in the Render dashboard
       - key: EMAIL_PROVIDER
         value: sendgrid
